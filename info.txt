@@ -1,0 +1,13 @@
+
+###import for the model
+from joblib import load
+nn = load('assets/nearestneighbor.sav')
+
+###front end code add this and call it to return the top 20 songs
+###might have to import pandas and data.csv as df
+def song_suggester(song_obj):
+    distance, neighbors = nn.kneighbors(np.array([song_obj]))
+    suggestions = []
+    for i in neighbors[0][1:]:
+        suggestions.append([df['name'].iloc[i],df['artists'].iloc[i]])
+    return suggestions
